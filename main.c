@@ -12,14 +12,14 @@ int main(int argc, char *argv[])
 
 	if (argc != 2)
 	{
-		printf("Usage: monty file\n");
+		dprintf(2,"Usage: monty file\n");
 		exit(EXIT_FAILURE);
 	}
 
 	bytecode_file = fopen(argv[1], "r");
 	if (bytecode_file == NULL)
 	{
-		printf("Error: Can't open file %s\n", argv[1]);
+		dprintf(2,"Error: Can't open file %s\n", argv[1]);
 		exit(EXIT_FAILURE);
 	}
 
@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
 				{
 					if (sscanf(value_str, "%u", &value) != 1)
 					{
-						printf("L%u: usage: push integer\n", line_number);
+						dprintf(2,"L%u: usage: push integer\n", line_number);
 						fclose(bytecode_file);
 						exit(EXIT_FAILURE);
 					}
@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
 		}
 		else
 		{
-			printf("L%u: unknown instruction %s.\n", line_number, command);
+			dprintf(2,"L%u: unknown instruction %s.\n", line_number, command);
 			fclose(bytecode_file);
 			exit(EXIT_FAILURE);
 		}
