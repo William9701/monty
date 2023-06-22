@@ -1,7 +1,7 @@
 #include "monty.h"
 
 /**
- * invalid_instruction - Handles an unknown instruction error.
+ * invalid_instruction - Handles an unknown instruction error
  */
 
 void invalid_instruction(void)
