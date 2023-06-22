@@ -1,7 +1,7 @@
 #include "monty.h"
 
 /**
- * free_tokens - Frees the allocated memory for tokens.
+ * free_tokens - Frees the allocated memory for tokens
  */
 
 void free_tokens(void)
