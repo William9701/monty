@@ -2,7 +2,7 @@
 
 /**
  * getting_stream_failed - Handles the error when reading a file fails.
- * @fileName: The name of the file that failed to open.
+ * @fileName: The name of the file that failed to open
  */
 
 void getting_stream_failed(char *fileName)
