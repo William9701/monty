@@ -19,9 +19,9 @@
  */
 typedef struct stack_s
 {
-        int n;
-        struct stack_s *prev;
-        struct stack_s *next;
+	int n;
+	struct stack_s *prev;
+	struct stack_s *next;
 } stack_t;
 
 /**
@@ -34,8 +34,8 @@ typedef struct stack_s
  */
 typedef struct instruction_s
 {
-        char *opcode;
-        void (*f)(stack_t **stack, unsigned int line_number);
+	char *opcode;
+	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
 /**
@@ -56,8 +56,8 @@ typedef struct instruction_s
  */
 typedef struct arg_s
 {
-        FILE *stream;
-        char *line;
+	FILE *stream;
+	char *line;
 	unsigned int line_number;
 	char **tokens;
 	int n_tokens;
@@ -67,7 +67,7 @@ typedef struct arg_s
 	int stack;
 } arg_t;
 
-extern arg_t *arguments;
+extern arg_t *command;
 
 void push(stack_t **stack, unsigned int line_number);
 void pop(stack_t **stack, unsigned int line_number);
@@ -92,18 +92,17 @@ ssize_t getline(char **lineptr, size_t *n, FILE *stream);
 FILE *fdopen(int fd, const char *mode);
 
 void malloc_failed(void);
-void validate_arguments(int argc);
 void get_stream(char *fileName);
 void close_stream(void);
-void free_arguments();
-void initialize_arguments();
+void free_arguments(void);
+void initialize_arguments(void);
 int is_number(char *str);
-void free_all_args(void);
+void free_args(void);
 void delete_stack_node(void);
 void tokenize_line(void);
 void free_tokens(void);
-void run_instruction(void);
-void get_instruction(void);
+void run_command(void);
+void get_command(void);
 void free_stack(stack_t *head);
 
 #endif /* MONTY_H */

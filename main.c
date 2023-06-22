@@ -1,7 +1,6 @@
 #include "monty.h"
 
-arg_t *arguments = NULL;
-
+arg_t *command = NULL;
 /**
  * main - Entry point
  * @argc: The number of command-line arguments.
@@ -15,21 +14,25 @@ int main(int argc, char **argv)
 {
 	size_t n = 0;
 
-	validate_arguments(argc);
+	if (argc != 2)
+	{
+		dprintf(2, "USAGE: monty file\n");
+		exit(EXIT_FAILURE);
+	}
 	initialize_arguments();
 	get_stream(argv[1]);
 
-	while (getline(&arguments->line, &n, arguments->stream) != -1)
+	while (getline(&command->line, &n, command->stream) != -1)
 	{
-		arguments->line_number += 1; /* tracking the line number of file */
-		tokenize_line(); /* break line into words */
-		get_instruction(); /* get the opcode from tokens array */
-		run_instruction(); /* run the function associated with opcode */
-		free_tokens(); /* free up memory for the tokens */
+		command->line_number += 1;
+		tokenize_line();
+		get_command();
+		run_command();
+		free_tokens();
 	}
 
-	close_stream(); /* close stream */
-	free_arguments(); /* free up memory allocated for the arguments pointer */
+	close_stream();
+	free_arguments();
 
 	return (0);
 }

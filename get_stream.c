@@ -25,8 +25,8 @@ void get_stream(char *fileName)
 	if (fd == -1)
 		getting_stream_failed(fileName);
 
-	arguments->stream = fdopen(fd, "r");
-	if (arguments->stream == NULL)
+	command->stream = fdopen(fd, "r");
+	if (command->stream == NULL)
 	{
 		close(fd);
 		getting_stream_failed(fileName);

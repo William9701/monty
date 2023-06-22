@@ -7,17 +7,17 @@
 void invalid_instruction(void)
 {
 	dprintf(2, "L%d: unknown instruction %s\n",
-			arguments->line_number, arguments->tokens[0]);
-	free_all_args();
+			command->line_number, command->tokens[0]);
+	free_args();
 	exit(EXIT_FAILURE);
 }
 
 /**
- * get_instruction - Sets the instruction based on the first token
+ * get_command - Sets the instruction based on the first token
  * in the input line.
  */
 
-void get_instruction(void)
+void get_command(void)
 {
 	int i = 0;
 	instruction_t instructions[] = {
@@ -33,24 +33,38 @@ void get_instruction(void)
 		{NULL, NULL}
 	};
 
-	if (arguments->n_tokens == 0) /* no instructions */
+	if (command->n_tokens == 0)
 		return;
-	if (arguments->tokens[0][0] == '#')
+	if (command->tokens[0][0] == '#')
 	{
-		arguments->instruction->opcode = "nop";
-		arguments->instruction->f = nop;
+		command->instruction->opcode = "nop";
+		command->instruction->f = nop;
 		return;
 	}
 	for (; instructions[i].opcode != NULL; i++)
 	{
 		/* compare opcode of instruction to first token (instruct..) */
-		if (strcmp(instructions[i].opcode, arguments->tokens[0])
+		if (strcmp(instructions[i].opcode, command->tokens[0])
 				== 0)
 		{
-			arguments->instruction->opcode = instructions[i].opcode;
-			arguments->instruction->f = instructions[i].f;
+			command->instruction->opcode = instructions[i].opcode;
+			command->instruction->f = instructions[i].f;
 			return;
 		}
 	}
 	invalid_instruction();
+}
+
+/**
+ * run_command - Runs the instruction specified by the arguments.
+ */
+
+void run_command(void)
+{
+	stack_t *stack = NULL;
+
+	if (command->n_tokens == 0)
+		return;
+
+	command->instruction->f(&stack, command->line_number);
 }
