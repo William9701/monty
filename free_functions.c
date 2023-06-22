@@ -26,7 +26,7 @@ void free_args(void)
 
 /**
  * free_head - Frees the memory allocated for the head and
- * sets it to NULL.
+ * sets it to NULL
  */
 void free_head(void)
 {
