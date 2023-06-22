@@ -3,7 +3,7 @@
 /**
  * mul - Multiplies the top two elements of the stack.
  * @stack: Pointer to the stack.
- * @line_number: Line number where the mul function is called.
+ * @line_number: Line number where the mul function is called
  */
 
 void mul(stack_t **stack, unsigned int line_number)
