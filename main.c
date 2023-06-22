@@ -1,65 +1,35 @@
 #include "monty.h"
 
-stack_t* stack = NULL;
+arg_t *arguments = NULL;
 
-int main(int argc, char *argv[])
+/**
+ * main - Entry point
+ * @argc: The number of command-line arguments.
+ * @argv: A pointer to an array of strings containing
+ * the command-line arguments.
+ * Description: print alphabets in lowercase using the putchar
+ *
+ * Return: returns 0 (Success)
+ */
+int main(int argc, char **argv)
 {
-    char *line = NULL;
-    size_t line_size = 0;
-    unsigned int line_number = 0;
-    FILE *bytecode_file;
-    unsigned int value;
-    char *value_str;
-    char *command;
+	size_t n = 0;
 
-    if (argc != 2)
-    {
-        dprintf(2,"Usage: monty file\n");
-        exit(EXIT_FAILURE);
-    }
+	validate_arguments(argc);
+	initialize_arguments();
+	get_stream(argv[1]);
 
-    bytecode_file = fopen(argv[1], "r");
-    if (bytecode_file == NULL)
-    {
-        dprintf(2, "Error: Can't open file %s\n", argv[1]);
-        exit(EXIT_FAILURE);
-    }
+	while (getline(&arguments->line, &n, arguments->stream) != -1)
+	{
+		arguments->line_number += 1; /* tracking the line number of file */
+		tokenize_line(); /* break line into words */
+		get_instruction(); /* get the opcode from tokens array */
+		run_instruction(); /* run the function associated with opcode */
+		free_tokens(); /* free up memory for the tokens */
+	}
 
-    while (getline(&line, &line_size, bytecode_file) != -1)
-    {
-        line_number++;
-        command = strtok(line, " \t\n");
-        value_str = strtok(NULL, " \t\n");
-        if (command != NULL)
-        {
-            if (strcmp(command, "push") == 0)
-            {
-                if (value_str != NULL)
-                {
-                    if (sscanf(value_str, "%u", &value) != 1)
-                    {
-                        dprintf(2, "L%u: usage: push integer\n", line_number);
-                        fclose(bytecode_file);
-                        exit(EXIT_FAILURE);
-                    }
+	close_stream(); /* close stream */
+	free_arguments(); /* free up memory allocated for the arguments pointer */
 
-                    push(&stack, value);
-                }
-            }
-            else if (strcmp(command, "pall") == 0)
-            {
-                pall(&stack, line_number);
-            }
-        }
-        else
-        {
-            dprintf(2, "L%u: unknown instruction %s.\n", line_number, command);
-            fclose(bytecode_file);
-            exit(EXIT_FAILURE);
-        }
-    }
-
-    free(line);
-    fclose(bytecode_file);
-    return 0;
+	return (0);
 }
