@@ -2,7 +2,7 @@
 
 /**
  * push - Pushes an integer onto the stack.
- * @stack: Pointer to the stack.
+ * @stack: Pointer to the stack
  * @line_number: Line number where the push function is called.
  */
 void push(stack_t **stack, unsigned int line_number)
