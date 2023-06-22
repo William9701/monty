@@ -1,7 +1,7 @@
 #include "monty.h"
 
 /**
- * malloc_failed - Handles the error when malloc fails to allocate memory.
+ * malloc_failed - Handles the error when malloc fails to allocate the memory.
  */
 
 void malloc_failed(void)
