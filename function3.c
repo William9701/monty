@@ -66,7 +66,7 @@ void sub(stack_t **stack, unsigned int line_number)
 	temp2->n = temp2->n - temp1->n;
 	delete_stack_node();
 	command->stack_length -= 1;
-		        
+
 }
 
 /**
