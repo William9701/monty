@@ -88,11 +88,11 @@ int is_comment(void)
 */
 void delete_stack_node(void)
 {
-	stack_t *tmp;
+	stack_t *temp;
 
-	tmp = command->head;
-	command->head = tmp->next;
-	free(tmp);
+	temp = command->head;
+	command->head = temp->next;
+	free(temp);
 }
 
 /**
