@@ -60,14 +60,13 @@ void sub(stack_t **stack, unsigned int line_number)
 		free_args();
 		exit(EXIT_FAILURE);
 	}
-
 	temp1 = command->head;
 	temp2 = temp1->next;
 
 	temp2->n = temp2->n - temp1->n;
 	delete_stack_node();
-
 	command->stack_length -= 1;
+		        
 }
 
 /**
