@@ -49,7 +49,7 @@ void push(stack_t **stack, unsigned int line_number)
  */
 void add(stack_t **stack, unsigned int line_number)
 {
-	stack_t *tmp1, *tmp2;
+	stack_t *temp1, *temp2;
 
 	(void) stack;
 	if (command->stack_length < 2)
@@ -58,10 +58,10 @@ void add(stack_t **stack, unsigned int line_number)
 		free_args();
 		exit(EXIT_FAILURE);
 	}
-	tmp1 = command->head;
-	tmp2 = tmp1->next;
+	temp1 = command->head;
+	temp2 = temp1->next;
 
-	tmp2->n = tmp1->n + tmp2->n;
+	temp2->n = temp1->n + temp2->n;
 	delete_stack_node();
 
 	command->stack_length -= 1;
